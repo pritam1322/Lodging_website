@@ -3,8 +3,7 @@ import {Link, useNavigate} from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useBookRoomMutation } from '../slices/usersApiSlice';
 import { booking } from '../slices/authSlice';
-import Loader from '../components/Loader';
-import {differenceInCalendarDays} from "date-fns";
+
 
 export default function BookingWidget() {
 
@@ -31,7 +30,7 @@ export default function BookingWidget() {
 
   let numberOfNights = 0;
   if (checkIn && checkOut) {
-    numberOfNights = differenceInCalendarDays(new Date(checkOut), new Date(checkIn));
+    numberOfNights = Math.floor(( new Date(checkOut)  - new Date(checkIn) ) / 86400000) + 1;
   }
 
   let price = rooms * 600 * numberOfNights;
